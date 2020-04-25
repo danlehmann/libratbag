@@ -808,7 +808,11 @@ hidpp10_get_current_profile(struct hidpp10_device *dev, uint8_t *current_profile
 
 	res = hidpp10_request_command(dev, &profile);
 	if (res)
-		return res;
+	{
+		/* Profiles not supported */
+		*current_profile = 0;
+		return 0;
+	}
 
 	type = profile.msg.parameters[0];
 	page = profile.msg.parameters[1];
